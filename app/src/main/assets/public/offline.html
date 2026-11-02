@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d10" />
+    <title>Offline | Tower Lighting</title>
+    <style>
+      :root { color-scheme: dark; font-family: Arial, sans-serif; background: #0b0d10; color: #f2f0e9; }
+      * { box-sizing: border-box; }
+      body { display: grid; min-height: 100vh; min-height: 100dvh; margin: 0; padding: 24px; place-items: center; }
+      main { width: min(100%, 430px); padding: 30px 26px; border: 1px solid rgba(215, 183, 109, .35); border-radius: 10px; background: #13161b; }
+      .mark { color: #d7b76d; font-size: 12px; font-weight: 700; letter-spacing: .18em; }
+      h1 { margin: 27px 0 10px; font-size: 28px; font-weight: 600; }
+      p { color: #a5a9ad; font-size: 15px; line-height: 1.65; }
+      button { min-height: 46px; margin-top: 12px; padding: 0 17px; border: 1px solid #d7b76d; border-radius: 5px; background: rgba(215, 183, 109, .12); color: #f1e4bf; font-size: 14px; font-weight: 600; }
+      .note { margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 255, 255, .1); font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="mark">TOWER LIGHTING</div>
+      <h1>You’re offline</h1>
+      <p>The complete app is available offline after it has been opened once while online. If you see this page on your first visit, reconnect and reload to save the app for offline use.</p>
+      <button type="button" onclick="location.reload()">Try again</button>
+      <p class="note">Your saved projects and 3D preview work on this device. This app preview does not connect to or control real building lights.</p>
+    </main>
+  </body>
+</html>

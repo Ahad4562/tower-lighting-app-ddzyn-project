@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0d10" />
+    <script>try { if (localStorage.getItem("towerlightning.theme") === "light") document.documentElement.dataset.theme = "light"; } catch (e) {}</script>
+    <meta name="description" content="A lighting management workspace for architectural projects." />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="TowerLight" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="icon" href="icon-192.png" type="image/png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="icon-192.png" sizes="192x192" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Tower Lighting | Lighting Studio</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#overview" aria-label="Towerlightning home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span class="brand-copy"><strong>TOWERLIGHTNING</strong><small>LIGHTING STUDIO</small></span>
+        </a>
+        <div class="sidebar-label">WORKSPACE</div>
+        <nav class="primary-nav">
+          <button class="nav-link is-active" type="button" data-page-link="overview"><span class="nav-icon">◫</span><span>Overview</span></button>
+          <button class="nav-link" type="button" data-page-link="projects"><span class="nav-icon">▦</span><span>Projects</span><span class="nav-count" id="project-count">01</span></button>
+          <button class="nav-link" type="button" data-page-link="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+        </nav>
+        <div class="sidebar-bottom">
+          <div class="sidebar-connection"><span class="connection-dot"></span><span>3D MODEL READY</span></div>
+          <div class="sidebar-version">TOWERLIGHTNING <span>·</span> LOCAL WORKSPACE</div>
+        </div>
+      </aside>
+
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="breadcrumb"><span>WORKSPACE</span><span class="breadcrumb-separator">/</span><strong id="breadcrumb-title">Overview</strong></div>
+          <div class="topbar-actions">
+            <label class="project-select-wrap" for="project-picker"><span>ACTIVE PROJECT</span><select id="project-picker" aria-label="Select active building project"></select></label>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to light theme" title="Light / Dark theme"><span class="theme-toggle-icon" aria-hidden="true">☀</span><span class="theme-toggle-label">Light</span></button>
+            <span class="topbar-divider"></span>
+            <span class="profile-avatar" aria-hidden="true">TL</span>
+          </div>
+        </header>
+
+        <main class="main-content">
+          <section id="page-overview" class="page" data-page="overview">
+            <div class="page-heading">
+              <div><p class="eyebrow">LIGHTING CONTROL CENTER</p><h1>Good evening<span class="heading-period">.</span></h1><p class="page-subtitle">Your building systems, at a glance.</p></div>
+              <div class="heading-project"><span class="live-indicator"></span><span id="overview-project-name">DZYN Residences</span><span class="heading-divider">·</span><span id="overview-project-location">North District</span></div>
+            </div>
+
+            <div class="summary-grid" aria-label="Project summary">
+              <article class="summary-card"><div class="summary-label">ACTIVE PROJECT</div><div class="summary-value" id="summary-project">DZYN Residences</div><div class="summary-note" id="summary-location">North District</div><span class="summary-mark">01</span></article>
+              <article class="summary-card"><div class="summary-label">LIGHTING GROUPS</div><div class="summary-value"><span id="summary-active-count">6</span><span class="summary-unit"> / 6</span></div><div class="summary-note" id="summary-light-state">All systems operational</div><span class="summary-mark">02</span></article>
+              <article class="summary-card"><div class="summary-label">CURRENT SCENE</div><div class="summary-value" id="summary-preset">Evening</div><div class="summary-note">Saved to this device</div><span class="summary-mark">03</span></article>
+              <article class="summary-card"><div class="summary-label">MODEL STATUS</div><div class="summary-value"><span class="status-live"><i></i> READY</span></div><div class="summary-note">Interactive 3D preview</div><span class="summary-mark">04</span></article>
+            </div>
+
+            <div class="workspace-grid">
+              <section class="panel model-panel" aria-label="Existing 3D building model">
+                <div class="panel-heading model-heading">
+                  <div><p class="eyebrow">LIVE MODEL</p><h2 id="model-project-name">DZYN Residences</h2></div>
+                  <span class="model-tag"><i></i> INTERACTIVE PREVIEW</span>
+                </div>
+                <div class="model-stage">
+                  <div id="scene" class="scene" aria-label="Interactive 3D view of the existing building model"></div>
+                  <div class="scene-overlay" aria-hidden="true"></div>
+                  <div class="scene-label"><span class="scene-label-dot"></span> EXISTING BUILDING MODEL <span class="scene-label-divider">/</span> LIVE PREVIEW</div>
+                  <div class="scene-tools" aria-label="Model view controls">
+                    <button type="button" id="zoom-in" aria-label="Zoom in" title="Zoom in">+</button>
+                    <button type="button" id="zoom-out" aria-label="Zoom out" title="Zoom out">−</button>
+                    <span></span>
+                    <button type="button" id="reset-view" aria-label="Reset camera view" title="Reset view">↻</button>
+                  </div>
+                  <div id="scene-error" class="scene-error" role="alert" hidden>3D preview could not start. Open this app from localhost or an HTTPS connection, and check that WebGL and hardware acceleration are enabled.</div>
+                  <div class="stage-footer"><span>DRAG TO ORBIT</span><span class="stage-footer-line"></span><span>SCROLL TO ZOOM</span><span class="stage-coordinates">VIEW 01 <b>·</b> TWIN TOWERS</span></div>
+                </div>
+              </section>
+
+              <section class="panel controls-panel" aria-label="Building lighting controls">
+                <div class="panel-heading controls-heading">
+                  <div><p class="eyebrow">PROPERTY SYSTEMS</p><h2>Lighting controls</h2></div>
+                  <span class="control-count"><span id="control-active-count">6</span> / 6 ACTIVE</span>
+                </div>
+                <button class="control-button master-button" type="button" data-control="all" aria-pressed="false">
+                  <span class="control-icon master-icon" aria-hidden="true"></span><span class="control-name">All ON / OFF</span><span class="control-state">OFF</span>
+                </button>
+                <div class="control-separator"></div>
+                <div class="control-list">
+                  <button class="control-button" type="button" data-control="towerA" aria-pressed="false"><span class="control-icon tower-icon" aria-hidden="true"></span><span class="control-name">Tower A</span><span class="control-state">OFF</span></button>
+                  <button class="control-button" type="button" data-control="towerB" aria-pressed="false"><span class="control-icon tower-icon" aria-hidden="true"></span><span class="control-name">Tower B</span><span class="control-state">OFF</span></button>
+                  <button class="control-button" type="button" data-control="landscape" aria-pressed="false"><span class="control-icon landscape-icon" aria-hidden="true"></span><span class="control-name">Landscape</span><span class="control-state">OFF</span></button>
+                  <button class="control-button" type="button" data-control="clubhouse" aria-pressed="false"><span class="control-icon clubhouse-icon" aria-hidden="true"></span><span class="control-name">Clubhouse</span><span class="control-state">OFF</span></button>
+                  <button class="control-button" type="button" data-control="crown" aria-pressed="false"><span class="control-icon crown-icon" aria-hidden="true"></span><span class="control-name">Crown Terrace</span><span class="control-state">OFF</span></button>
+                  <button class="control-button" type="button" data-control="facade" aria-pressed="false"><span class="control-icon facade-icon" aria-hidden="true"></span><span class="control-name">Facade Light</span><span class="control-state">OFF</span></button>
+                </div>
+                <div class="control-separator utility-separator"></div>
+                <div class="utility-controls">
+                  <button class="control-button utility-button" type="button" data-control="cars" aria-pressed="false"><span class="control-icon car-icon" aria-hidden="true"></span><span class="control-name">Moving Car</span><span class="control-state">OFF</span></button>
+                  <button class="control-button utility-button" type="button" data-control="animation" aria-pressed="false"><span class="control-icon animation-icon" aria-hidden="true"></span><span class="control-name">Animation</span><span class="control-state">OFF</span></button>
+                </div>
+                <div class="hardware-banner" id="hardware-banner" role="status">3D preview only. Hardware not connected.</div>
+                <div class="control-status"><span class="control-status-line"></span><span id="scene-status-text">SYSTEM ACTIVE</span><span class="control-status-note">SAVED AUTOMATICALLY</span></div>
+              </section>
+            </div>
+
+            <section class="panel adjustments-panel" aria-label="Lighting adjustments">
+              <div class="adjustment-heading"><div><p class="eyebrow">SCENE DESIGN</p><h2>Fine-tune your lighting</h2></div><span class="saved-indicator"><i></i> AUTO-SAVED</span></div>
+              <div class="adjustment-grid">
+                <div class="adjustment-block brightness-block">
+                  <label class="adjustment-label" for="brightness-slider">Brightness <output id="brightness-value" for="brightness-slider">100%</output></label>
+                  <input id="brightness-slider" type="range" min="25" max="150" value="100" />
+                  <div class="range-labels"><span>DIM</span><span>BRIGHT</span></div>
+                </div>
+                <div class="adjustment-block color-block">
+                  <label class="adjustment-label" for="color-picker">Light color <span id="color-value">Warm white</span></label>
+                  <div class="color-control"><input id="color-picker" type="color" value="#f5c875" aria-label="Choose lighting color" /><div><strong>Custom color</strong><small>Applied to supported lighting</small></div></div>
+                </div>
+                <div class="adjustment-block preset-block">
+                  <span class="adjustment-label">Lighting presets</span>
+                  <div class="preset-list" id="preset-list" role="group" aria-label="Lighting presets">
+                    <button class="preset-button is-selected" type="button" data-preset="Evening">Evening</button>
+                    <button class="preset-button" type="button" data-preset="Arrival">Arrival</button>
+                    <button class="preset-button" type="button" data-preset="Day">Day</button>
+                    <button class="preset-button" type="button" data-preset="Night">Night</button>
+                    <button class="preset-button" type="button" data-preset="Celebration">Celebration</button>
+                  </div>
+                </div>
+              </div>
+              <p class="compatibility-note">Brightness and color adjust lighting already supported by the existing model. Presets affect this project only.</p>
+            </section>
+          </section>
+
+          <section id="page-projects" class="page" data-page="projects" hidden>
+            <div class="page-heading page-heading-simple"><div><p class="eyebrow">COMPANY WORKSPACE</p><h1>Building projects<span class="heading-period">.</span></h1><p class="page-subtitle">Organize projects and keep each lighting scene saved separately.</p></div><button class="button-primary" type="button" data-open-project-dialog><span>＋</span> New project</button></div>
+            <div class="project-overview-strip"><div class="project-overview-icon">▦</div><div><strong id="projects-summary">1 project</strong><span>Projects and lighting preferences are saved on this device.</span></div><span class="project-template-note">CURRENT MODEL TEMPLATE · DZYN TOWERS</span></div>
+            <div class="project-grid" id="projects-grid"></div>
+            <p class="info-callout"><span>i</span> The current 3D building model is preserved and used as the preview for each project. Project entries keep their own names, locations, lighting states, and scenes; separate building models can be connected when available.</p>
+          </section>
+
+          <section id="page-settings" class="page" data-page="settings" hidden>
+            <div class="page-heading page-heading-simple"><div><p class="eyebrow">PREFERENCES & CONNECTIONS</p><h1>Settings<span class="heading-period">.</span></h1><p class="page-subtitle">Check offline status, controller connection, and project preferences.</p></div></div>
+            <div class="settings-grid">
+              <section class="panel settings-card bluetooth-card">
+                <div class="settings-card-icon bluetooth-icon">⌁</div><p class="eyebrow">HARDWARE INTEGRATION</p>                <h2>Hardware controller (HC-05)</h2><p>Mode: Bluetooth Classic SPP/RFCOMM at 9600 baud, available only in the Android app. Web Bluetooth (BLE) cannot connect to an HC-05, so a browser or installed PWA never controls hardware.</p>
+                <div class="bluetooth-status-row"><span class="bluetooth-symbol">ᛒ</span><div><strong id="bluetooth-support">Checking browser support…</strong><small id="bluetooth-detail">No hardware connection is active.</small></div><span class="connection-badge" id="bluetooth-badge">NOT CONNECTED</span></div>
+                                <select id="bluetooth-device" aria-label="Paired Bluetooth device" disabled><option>No paired devices loaded</option></select>
+                <button class="button-secondary" id="bluetooth-refresh" type="button" hidden>Refresh paired devices</button>
+                <button class="button-secondary" id="bluetooth-button" type="button" disabled>Connect</button>
+                                <button class="button-secondary" id="bluetooth-reconnect" type="button" hidden>Reconnect</button>
+                
+                
+                                <div id="bluetooth-log" class="install-guidance" aria-live="polite"></div>
+                                <div class="install-guidance"><strong>Troubleshooting.</strong> Pair the HC-05 first in Android Settings → Bluetooth (PIN is set on the module, commonly 1234 or 0000). Allow "Nearby devices" when asked. Check the HC-05 is powered and not connected to another phone. A reply of OK:… or STATUS:… only means the Arduino accepted the command; confirm the light itself changes. If the link is connected but the controller never replies, re-upload the sketch and check the HC-05 baud rate (9600) and the Mega pin 10/11 wiring.</div>
+              </section>
+              <section class="panel settings-card storage-card">
+                <div class="settings-card-icon">◷</div><p class="eyebrow">DATA & PRIVACY</p><h2>Project preferences</h2><p>Project details, light states, brightness, color, and presets are saved automatically in this browser on this device.</p>
+                <div class="storage-summary"><span>Storage</span><strong>Local browser storage</strong><span>Active project</span><strong id="settings-active-project">DZYN Residences</strong><span>Saved state</span><strong id="storage-state">Up to date</strong></div>
+                <button class="button-secondary" id="reset-preferences" type="button">Restore default project settings</button>
+              </section>
+              <section class="panel settings-card compatibility-card">
+                <div class="settings-card-icon">◎</div><p class="eyebrow">APP STATUS</p><h2>Connection & offline status</h2>
+                <div class="capability-list"><div><span>Offline app shell</span><span id="capability-offline" class="capability-pill">Checking</span></div><div><span>Hardware Bluetooth</span><span id="capability-bluetooth" class="capability-pill">Checking</span></div></div>
+                <p class="compatibility-note">Offline preview works after the app has loaded once. HC-05 relay control is available in the Android app when it is connected to the controller.</p>
+              </section>
+            </div>
+          </section>
+        </main>
+      </div>
+    </div>
+
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="nav-link is-active" type="button" data-page-link="overview"><span class="nav-icon">◫</span><span>Overview</span></button>
+      <button class="nav-link" type="button" data-page-link="projects"><span class="nav-icon">▦</span><span>Projects</span></button>
+      <button class="nav-link" type="button" data-page-link="settings"><span class="nav-icon">⚙</span><span>Settings</span></button>
+    </nav>
+
+    <dialog class="project-dialog" id="project-dialog">
+      <form id="project-form">
+        <div class="dialog-heading"><div><p class="eyebrow">COMPANY WORKSPACE</p><h2>Add a building project</h2></div><button class="dialog-close" type="button" data-close-project-dialog aria-label="Close">×</button></div>
+        <label for="project-name-input">Project name</label><input id="project-name-input" name="name" maxlength="48" required placeholder="e.g. Meridian Residences" />
+        <label for="project-location-input">Location</label><input id="project-location-input" name="location" maxlength="64" placeholder="District or city" />
+        <div class="dialog-actions"><button class="button-secondary" type="button" data-close-project-dialog>Cancel</button><button class="button-primary" type="submit">Create project</button></div>
+      </form>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script type="module" src="script.js"></script>
+    <script type="module" src="bluetooth.js"></script>
+  </body>
+</html>
